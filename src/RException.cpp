@@ -1,11 +1,31 @@
 #include "RException.h"
+#include <sstream>
 
-RPTR::Thread_exception::Thread_exception(std::string func, int error)
+RPTR::Exception::Exception(const std::string &error) : m_what(error)
+{}
+
+const char* RPTR::Exception::what() const noexcept
 {
-    
+    return m_what.c_str();
 }
 
-const char * RPTR::Thread_exception::what() const _GLIBCXX_TXN_SAFE_DYN _GLIBCXX_USE_NOEXCEPT
+void RPTR::Exception::set_what(const std::string& msg)
 {
-    return m_err.c_str();
+    m_what = msg;
+}
+
+RPTR::ThreadException::ThreadException(const std::string& func, int error)
+{
+    std::stringstream   s;
+
+    s << "Thread exception : " << func << " returned " << error;
+    set_what(s.str());
+}
+
+RPTR::MutexException::MutexException(const std::string& func, int error)
+{
+    std::stringstream   s;
+
+    s << "Mutex exception : " << func << " returned " << error;
+    set_what(s.str());
 }

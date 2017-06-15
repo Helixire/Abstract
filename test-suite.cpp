@@ -1,19 +1,42 @@
 #include <iostream>
+#include <list>
 #include "RThread.h"
+#include "RMutex.h"
 
-void func(void *t)
+struct osef
 {
-    std::cout << *(int *)t << std::endl;
+    char    c;
+    RPTR::Mutex &m;
+};
+
+void func(osef *a)
+{
+    int i;
+    
+    for (i = 0; i < 4; ++i)
+    {
+        a->m.lock();
+        std::cout << a->c << std::endl;
+        a->m.unlock();
+    }
 }
 
 int main(int ac, char **av)
 {
-    int nb;
+    RPTR::Mutex     m;
+    osef            d[] = {{'a', m}, {'b', m}, {0, m}};
+    int             i;
+    RPTR::Thread    *thread;
     
-    nb = 4;
-    RPTR::Thread test(func, (void *)&nb);
-    
-    std::cout << "This is Sparta" << std::endl;
-    test.join();
+    m.lock();
+    for (i = 0; d[i].c; ++i);
+    thread = new RPTR::Thread[i];
+    for (i = 0; d[i].c; ++i)
+        thread[i].start((void (*)(void *))func, d + i);
+    std::cout << "Starting" << std::endl;
+    m.unlock();
+    for (i = 0; d[i].c; ++i)
+        thread[i].join();
+    std::cout << "out" << std::endl;
     return (0);
 }

@@ -4,7 +4,7 @@ project(Abstract)
 include_directories(src)
 
 set(SRC_COMMON "RException.cpp")
-set(SRC_LIST "RThread.cpp")
+set(SRC_LIST "RThread.cpp" "RMutex.cpp")
 
 if (UNIX)
   message("Setting up Linux")

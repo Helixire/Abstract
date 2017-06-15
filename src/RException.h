@@ -1,17 +1,32 @@
+#ifndef __REXCEPTION_H__
+#define __REXCEPTION_H__
 
 #include <exception>
 #include <string>
 
 namespace RPTR
 {
-    
-    class Thread_exception : public std::exception
+    class Exception : public std::exception
     {
     public:
-        Thread_exception(std::string func, int error);
-        virtual const char *what() const _GLIBCXX_TXN_SAFE_DYN _GLIBCXX_USE_NOEXCEPT;
+        Exception(const std::string& error = "An exception occurred");
+        virtual const char *what() const noexcept;
+    protected:
+        virtual void    set_what(const std::string &msg);
     private:
-        std::string m_err;
+        std::string m_what;
     };
     
+    class ThreadException : public RPTR::Exception
+    {
+    public:
+        ThreadException(const std::string& func, int error);
+    };
+    
+    class MutexException : public RPTR::Exception
+    {
+    public:
+        MutexException(const std::string& func, int error);
+    };
 }
+#endif /* __REXCEPTION_H__ */
