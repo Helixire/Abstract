@@ -20,13 +20,19 @@ namespace RPTR
     class ThreadException : public RPTR::Exception
     {
     public:
-        ThreadException(const std::string& func, int error);
+        ThreadException(const std::string &func, int error);
     };
     
     class MutexException : public RPTR::Exception
     {
     public:
-        MutexException(const std::string& func, int error);
+        MutexException(const std::string &func, int error);
+    };
+    
+    class SemaphoreException : public RPTR::Exception
+    {
+    public:
+        SemaphoreException(const std::string &func, int error);
     };
 }
 #endif /* __REXCEPTION_H__ */

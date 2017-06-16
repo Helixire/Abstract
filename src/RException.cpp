@@ -29,3 +29,12 @@ RPTR::MutexException::MutexException(const std::string& func, int error)
     s << "Mutex exception : " << func << " returned " << error;
     set_what(s.str());
 }
+
+
+RPTR::SemaphoreException::SemaphoreException(const std::string& func, int error)
+{
+    std::stringstream   s;
+
+    s << "Semaphore exception : " << func << " errno : " << error;
+    set_what(s.str());
+}
