@@ -9,6 +9,7 @@ namespace RPTR
     {
     public:
         Thread();
+        Thread(void (* funct)(void *), void* param);
         void start(void (*funct)(void *), void *param);
         void join();
         void detach();

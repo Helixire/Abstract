@@ -12,6 +12,12 @@ RPTR::Thread::~Thread() {}
 RPTR::Thread::Thread() : m_joinable(false), m_data(new RThread_data)
 {}
 
+RPTR::Thread::Thread(void (*funct)(void *), void* param) : m_joinable(false), m_data(new RThread_data)
+{
+    start(funct, param);
+}
+
+
 void RPTR::Thread::start(void (*funct)(void *), void *param)
 {
     int ret;
