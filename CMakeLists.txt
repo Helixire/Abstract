@@ -22,6 +22,7 @@ foreach(i ${SRC_COMMON})
     LIST(APPEND SRCS "src/${i}")
 endforeach(i)
 add_library(Abstract ${SRCS})
+target_include_directories (Abstract PUBLIC src)
 find_package(Threads REQUIRED)
 target_link_libraries(Abstract Threads::Threads)
 
