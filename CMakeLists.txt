@@ -27,5 +27,12 @@ find_package(Threads REQUIRED)
 target_link_libraries(Abstract Threads::Threads)
 
 
-add_executable(tes test-suite.cpp)
-target_link_libraries(tes Abstract)
+# Test suite
+
+option(Test "Test" OFF)
+
+
+if (Test)
+    add_executable(tes test-suite.cpp)
+    target_link_libraries(tes Abstract)
+endif()
