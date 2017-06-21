@@ -22,11 +22,12 @@ namespace RPTR
       return ret;
     }
 
-    void operator=(T &val)
+    Atomic<T> &operator=(const T &val)
     {
       m_mut.lock();
       m_data = val;
       m_mut.unlock();
+      return *this;
     }
 
   private:
