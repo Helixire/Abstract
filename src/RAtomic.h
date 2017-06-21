@@ -9,6 +9,7 @@ namespace RPTR
   class Atomic
   {
   public:
+    Atomic() {}
     Atomic(T val) : m_data(val) {}
 
     T get()
