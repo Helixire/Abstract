@@ -33,6 +33,6 @@ option(Test "Test" OFF)
 
 
 if (Test)
-    add_executable(tes test-suite.cpp)
-    target_link_libraries(tes Abstract)
+    add_executable(test-suite test-suite.cpp)
+    target_link_libraries(test-suite Abstract)
 endif()
