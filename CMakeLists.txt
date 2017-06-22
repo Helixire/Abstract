@@ -3,7 +3,7 @@ project(Abstract)
 
 include_directories(src)
 
-set(SRC_COMMON "RException.cpp")
+set(SRC_COMMON "RException.cpp" "RLocker.cpp")
 set(SRC_LIST "RThread.cpp" "RMutex.cpp" "RSemaphore.cpp")
 
 if (UNIX)
