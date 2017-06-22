@@ -1,7 +1,7 @@
 #ifndef __RATOMIC_H__
 #define __RATOMIC_H__
 
-#include "RMutex.h"
+#include "RLocker.h"
 
 namespace RPTR
 {
@@ -16,17 +16,19 @@ namespace RPTR
     {
       T ret;
 
-      m_mut.lock();
-      ret = m_data;
-      m_mut.unlock();
+      {
+        Locker  lock(m_mut);
+        ret = m_data;
+      }
       return ret;
     }
 
     Atomic<T> &operator=(const T &val)
     {
-      m_mut.lock();
-      m_data = val;
-      m_mut.unlock();
+      {
+        Locker  lock(m_mut);
+        m_data = val;
+      }
       return *this;
     }
 
