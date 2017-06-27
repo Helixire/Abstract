@@ -11,24 +11,38 @@ namespace RPTR
   public:
     Atomic() {}
     Atomic(T val) : m_data(val) {}
-
+    ~Atomic() {}
     T get()
     {
       T ret;
+      Locker  lock(m_mut);
 
-      {
-        Locker  lock(m_mut);
-        ret = m_data;
-      }
+      ret = m_data;
       return ret;
     }
 
     Atomic<T> &operator=(const T &val)
     {
-      {
-        Locker  lock(m_mut);
-        m_data = val;
-      }
+      Locker  lock(m_mut);
+
+      m_data = val;
+      return *this;
+    }
+
+    Atomic<T> &operator+=(const T &val)
+    {
+      Locker lock(m_mut);
+
+      m_data += val;
+
+      return *this;
+    }
+
+    Atomic<T> &operator-=(const T &val)
+    {
+      Locker lock(m_mut);
+
+      m_data -= val;
       return *this;
     }
 

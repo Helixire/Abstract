@@ -1,4 +1,5 @@
 #include "RLocker.h"
+#include <iostream>
 
 RPTR::Locker::Locker(Mutex &mut): m_mut(mut)
 {
