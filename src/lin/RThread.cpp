@@ -9,12 +9,24 @@ struct RPTR::Thread::RThread_data
 
 RPTR::Thread::~Thread() {}
 
+void RPTR::Thread::launch_cmd(RPTR::SCommand *cmd)
+{
+    RPTR::SCommand  cur(*cmd);
+
+    cur->execute();
+}
+
 RPTR::Thread::Thread() : m_joinable(false), m_data(new RThread_data)
 {}
 
 RPTR::Thread::Thread(void (*funct)(void *), void* param) : m_joinable(false), m_data(new RThread_data)
 {
     start(funct, param);
+}
+
+RPTR::Thread::Thread(RPTR::SCommand cmd): m_joinable(false), m_data(new RThread_data)
+{
+    start(cmd);
 }
 
 
@@ -27,6 +39,11 @@ void RPTR::Thread::start(void (*funct)(void *), void *param)
     if ((ret = pthread_create(&m_data->thread, NULL, (void *(*)(void *))funct, param)))
         throw(ThreadException("pthread_create", ret));
     m_joinable = true;
+}
+
+void RPTR::Thread::start(RPTR::SCommand cmd)
+{
+    start((void (*)(void *))launch_cmd, (void *)&cmd);
 }
 
 void RPTR::Thread::join()
