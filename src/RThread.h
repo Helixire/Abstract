@@ -24,7 +24,7 @@ private:
     bool    m_joinable;
     struct RThread_data;
 
-    std::unique_ptr<RThread_data>   m_data;
+    RThread_data *m_data;
 };
 }
 

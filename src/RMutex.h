@@ -1,7 +1,6 @@
 #ifndef __RMUTEX_H__
 #define __RMUTEX_H__
 
-#include <memory>
 
 //using critical section on windows
 
@@ -25,7 +24,7 @@ namespace RPTR
         
         struct RMutex_data;
         
-        std::unique_ptr<RMutex_data>   m_data;
+        RMutex_data *m_data;
     };
 }
 

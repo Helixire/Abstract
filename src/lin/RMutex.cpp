@@ -10,6 +10,7 @@ struct RPTR::Mutex::RMutex_data
 RPTR::Mutex::~Mutex() 
 {
     pthread_mutex_destroy(&m_data->mutex);
+    delete m_data;
 }
 
 RPTR::Mutex::Mutex() : m_data(new RMutex_data)

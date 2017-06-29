@@ -11,6 +11,7 @@ struct RPTR::Semaphore::RSemaphore_data
 RPTR::Semaphore::~Semaphore() 
 {
     sem_destroy(&m_data->semaphore);
+    delete m_data;
 }
 
 RPTR::Semaphore::Semaphore(unsigned int base) : m_data(new RSemaphore_data)

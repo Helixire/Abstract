@@ -7,7 +7,10 @@ struct RPTR::Thread::RThread_data
     pthread_t   thread;
 };
 
-RPTR::Thread::~Thread() {}
+RPTR::Thread::~Thread()
+{
+    delete m_data;
+}
 
 void RPTR::Thread::launch_cmd(RPTR::SCommand *cmd)
 {
