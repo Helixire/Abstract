@@ -3,28 +3,26 @@
 
 #include "RICommand.h"
 
-namespace RPTR
-{
-class Thread
-{
+namespace RPTR {
+class Thread {
 public:
-    Thread();
-    Thread(void (*funct)(void *), void* param);
-    Thread(SCommand cmd);
-    void    start(void (*funct)(void *), void *param);
-    void    start(SCommand cmd);
-    void    join();
-    void    detach();
+  Thread();
+  Thread(void (*funct)(void *), void *param);
+  Thread(SCommand cmd);
+  void start(void (*funct)(void *), void *param);
+  void start(SCommand cmd);
+  void join();
+  void detach();
 
-    ~Thread();
+  ~Thread();
+
 private:
+  static void launch_cmd(SCommand *cmd);
 
-    static void    launch_cmd(SCommand *cmd);
+  bool m_joinable;
+  struct RThread_data;
 
-    bool    m_joinable;
-    struct RThread_data;
-
-    RThread_data *m_data;
+  RThread_data *m_data;
 };
 }
 

@@ -4,11 +4,10 @@
 #include <memory>
 
 namespace RPTR {
-class   ICommand
-{
+class ICommand {
 public:
-    virtual ~ICommand() {}
-    virtual void    execute() = 0;
+  virtual ~ICommand() {}
+  virtual void execute() = 0;
 };
 
 typedef std::shared_ptr<ICommand> SCommand;
